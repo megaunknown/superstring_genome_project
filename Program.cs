@@ -39,33 +39,13 @@ namespace Superstring
 
         Since temp[] has only one string now, return it.
          */
-
-        public enum OverlapingType
-        {
-            Prefix = 0,
-            Suffix = 1,
-            NON = -1
-        };
-
-        public static OverlapingType getOverloapingMethod(string strInput, string strOver)
-        {
-            OverlapingType c = OverlapingType.NON;
-
-            if (strInput[0] == strOver[0])
-            {
-                c = OverlapingType.Prefix;
-            }
-            else if (strInput[0] != strOver[0])
-            {
-                c = OverlapingType.Suffix;
-            }
-            return c;
-        }
-
+        private static SuperStringSol _sol;
         static void Main(string[] args)
         {
+            _sol = new SuperStringSol();
+
             //print(Shredder("catgc"));
-            int iRef = 0;
+
             //   Console.WriteLine(IsOverloaped("catgc","atgcatc",ref iRef));
             //string s = string.Empty;
             //Console.WriteLine(IsOverloaped(Shredder("catgc"),Shredder("atgcatc") ,ref iRef ,ref s));
@@ -102,7 +82,7 @@ namespace Superstring
 
             str1 = "ttcatgcatc";
             str2 = "gctaagt";
-            Console.WriteLine(MergeOverlapedStrings(str1, str2));
+        //    Console.WriteLine(MergeOverlapedStrings(str1, str2));
 
             //    Console.WriteLine("Best Matched Pair is {0} And {1} with Substring length {2}", str1, str2,iRef);
 
@@ -113,8 +93,33 @@ namespace Superstring
             //   GetOverlapIndex(str1, str2, ref i, ref j);
             Console.ReadKey();
         }
+    }
 
-        public static void print(ArrayList ar)
+    public class SuperStringSol
+    {
+        public enum OverlapingType
+        {
+            Prefix = 0,
+            Suffix = 1,
+            NON = -1
+        };
+
+        public  OverlapingType getOverloapingMethod(string strInput, string strOver)
+        {
+            OverlapingType c = OverlapingType.NON;
+
+            if (strInput[0] == strOver[0])
+            {
+                c = OverlapingType.Prefix;
+            }
+            else if (strInput[0] != strOver[0])
+            {
+                c = OverlapingType.Suffix;
+            }
+            return c;
+        }
+
+        public  void print(ArrayList ar)
         {
             for (int i = 0; i < ar.Count; i++)
             {
@@ -122,8 +127,7 @@ namespace Superstring
             }
         }
 
-       
-        public static ArrayList ShredderEx(string strInput)
+        public  ArrayList ShredderEx(string strInput)
         {
             ArrayList ar = new ArrayList();
             int iStartIndex = 0;
@@ -146,7 +150,7 @@ namespace Superstring
         }
 
 
-        public static ArrayList Shredder(string strInput)
+        public  ArrayList Shredder(string strInput)
         {
             ArrayList ar = new ArrayList();
             int iStartIndex = 0;
@@ -163,7 +167,7 @@ namespace Superstring
             //L-R
             for (int i = 0; i < iCount; i++)
             {
-                string strTemp = ReverseString( strInput.Substring(iStartIndex, i + 1));
+                string strTemp = ReverseString(strInput.Substring(iStartIndex, i + 1));
                 ar.Add(strTemp);
             }
 
@@ -177,7 +181,7 @@ namespace Superstring
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string ReverseString(string s)
+        public string ReverseString(string s)
         {
             char[] arr = s.ToCharArray();
             Array.Reverse(arr);
@@ -189,7 +193,7 @@ namespace Superstring
         /// </summary>
         /// <param name="ar"></param>
         /// <returns></returns>
-        public static ArrayList RemDuplication(ArrayList ar)
+        public ArrayList RemDuplication(ArrayList ar)
         {
             for (int i = 0; i < ar.Count; i++)
             {
@@ -215,7 +219,7 @@ namespace Superstring
         /// <param name="len"></param>
         /// <param name="strOver"></param>
         /// <returns></returns>
-        public static bool IsOverloaped(ArrayList a, ArrayList b, ref int len, ref string strOver)
+        public bool IsOverloaped(ArrayList a, ArrayList b, ref int len, ref string strOver)
         {
             bool bResult = false;
             int OverLaopStringLen = 0;
@@ -246,7 +250,7 @@ namespace Superstring
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static string GetOverlapingString(ArrayList a, ArrayList b)
+        public string GetOverlapingString(ArrayList a, ArrayList b)
         {
             string strResult = "";
             int OverLaopStringLen = 0;
@@ -270,7 +274,7 @@ namespace Superstring
             return strResult;
         }
 
-        public static void BestMatchPair(ArrayList ar, ref string str1, ref string str2, ref int iLen)
+        public void BestMatchPair(ArrayList ar, ref string str1, ref string str2, ref int iLen)
         {
             if (ar.Count == 1 || ar.Count == 0)
                 return;
@@ -299,7 +303,7 @@ namespace Superstring
             }
         }
 
-        public static void GetOverlapIndex(string str1, string str2, ref int Indx1, ref int Indx2)
+        public  void GetOverlapIndex(string str1, string str2, ref int Indx1, ref int Indx2)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
 
@@ -353,7 +357,7 @@ namespace Superstring
 
         }
 
-        public static void GetOverlapIndexAndString(string str1, string str2, ref int Indx1, ref int Indx2, ref string strOver)
+        public  void GetOverlapIndexAndString(string str1, string str2, ref int Indx1, ref int Indx2, ref string strOver)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
 
@@ -411,18 +415,18 @@ namespace Superstring
 
         }
 
-        public static string MergeOverlapedStrings(string str1, string str2)
+        public  string MergeOverlapedStrings(string str1, string str2)
         {
             string strOutput = "";
             string strOvr = string.Empty;
             int i = 0, j = 0;
 
-            
+
             GetOverlapIndexAndString(str1, str2, ref i, ref j, ref strOvr);
-      
+
             if (str1.Length > str2.Length)
             {
-                if(j == 0)
+                if (j == 0)
                     strOutput = str2.Substring(0, 1);
                 else
                     strOutput = str2.Substring(0, j);
