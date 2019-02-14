@@ -242,6 +242,13 @@ namespace Superstring
             return strResult;
         }
 
+        /// <summary>
+        /// Get Refs of Overlapped from Both Strings.
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <param name="Indx1"></param>
+        /// <param name="Indx2"></param>
         public void GetOverlapIndex(string str1, string str2, ref int Indx1, ref int Indx2)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
