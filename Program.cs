@@ -45,70 +45,26 @@ namespace Superstring
         {
             _sol = new SuperStringSol();
 
-            string str1 = "", str2 = "";
-
-            //Problem Solution.
-            str1 = "catgcatc";
-            str2 = "ttca";
-            WriteLine(_sol.MergeOverlapedStrings(str1, str2));
-
+            string str1 = "catgcatc", str2 = "ttca";
 
             //Test Overlapping Index Function.
-            int i = 0, j = 0;
-            _sol.GetOverlapIndex(str1, str2, ref i, ref j);
-            WriteLine($"i value {i} , j value {j}");
+            //int i = 0, j = 0;
+            //_sol.GetOverlapIndex(str1, str2, ref i, ref j);
+            //WriteLine($"i value {i} , j value {j}");
 
-            //Test if Two Strings are overlapping 
+            //Problem Solution.
+            WriteLine(_sol.MergeOverlapedStrings(str1, str2));
 
-            //    WriteLine("Best Matched Pair is {0} And {1} with Substring length {2}", str1, str2,iRef);
-            //print(Shredder("catgc"));
-
-            //   WriteLine(IsOverloaped("catgc","atgcatc",ref iRef));
-            //string s = string.Empty;
-            //WriteLine(IsOverloaped(Shredder("catgc"),Shredder("atgcatc") ,ref iRef ,ref s));
-            //WriteLine(iRef);
-            //WriteLine(s);
-            //   ArrayList ar = new ArrayList();
-
-            //   ar.Add("catgcatc");
-            //   ar.Add("ctaagt");
-            //   ar.Add("gcta");
-            //   ar.Add("ttca");
-            // //  ar.Add("atgcatc");
-
-            ////   WriteLine(GetOverlapingString(Shredder("ttcatgcatc"), Shredder("gctaagt")));
-
-            //   BestMatchPair(ar, ref  str1, ref  str2,ref iRef);
-            //str1 = "catgc";
-
-            ////Shredder(str1);
-
-            //str2 = "atgcatc";
-            //WriteLine(MergeOverlapedStrings(str1, str2));
-
-
-            //str1 = "ctaagt";
-            //str2 = "gcta";
-            //WriteLine(MergeOverlapedStrings(str1, str2));
-
-
-            //str1 = "catgcatc";
-            //str2 = "ttca";
-            //WriteLine(MergeOverlapedStrings(str1, str2));
             ReadKey();
         }
     }
 
     public class SuperStringSol
     {
-        public enum OverlapingType
-        {
-            Prefix = 0,
-            Suffix = 1,
-            NON = -1
-        };
-
-
+        /// <summary>
+        /// Printout Array elements.
+        /// </summary>
+        /// <param name="ar"></param>
         public void Print(ArrayList ar)
         {
             for (int i = 0; i < ar.Count; i++)
@@ -303,6 +259,13 @@ namespace Superstring
 
         }
 
+        /// <summary>
+        /// Get Refs of Overlapped from Both Strings and Overlapping string.
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <param name="Indx1"></param>
+        /// <param name="Indx2"></param>
         public void GetOverlapIndexAndString(string str1, string str2, ref int Indx1, ref int Indx2, ref string strOver)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
@@ -361,6 +324,12 @@ namespace Superstring
 
         }
 
+        /// <summary>
+        /// Merge Overlapped Areas
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
         public string MergeOverlapedStrings(string str1, string str2)
         {
             string strOutput = "";
@@ -491,3 +460,11 @@ namespace Superstring
 //    }
 //    return c;
 //}
+
+
+//public enum OverlapingType
+//{
+//    Prefix = 0,
+//    Suffix = 1,
+//    NON = -1
+//};
