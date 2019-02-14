@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static System.Console;
 using System.Collections;
 
 namespace Superstring
@@ -44,14 +45,29 @@ namespace Superstring
         {
             _sol = new SuperStringSol();
 
+            string str1 = "", str2 = "";
+
+            //Problem Solution.
+            str1 = "catgcatc";
+            str2 = "ttca";
+            WriteLine(_sol.MergeOverlapedStrings(str1, str2));
+
+
+            //Test Overlapping Index Function.
+            int i = 0, j = 0;
+            _sol.GetOverlapIndex(str1, str2, ref i, ref j);
+            WriteLine($"i value {i} , j value {j}");
+
+            //Test if Two Strings are overlapping 
+
+            //    WriteLine("Best Matched Pair is {0} And {1} with Substring length {2}", str1, str2,iRef);
             //print(Shredder("catgc"));
 
-            //   Console.WriteLine(IsOverloaped("catgc","atgcatc",ref iRef));
+            //   WriteLine(IsOverloaped("catgc","atgcatc",ref iRef));
             //string s = string.Empty;
-            //Console.WriteLine(IsOverloaped(Shredder("catgc"),Shredder("atgcatc") ,ref iRef ,ref s));
-            //Console.WriteLine(iRef);
-            //Console.WriteLine(s);
-            string str1 = "", str2 = "";
+            //WriteLine(IsOverloaped(Shredder("catgc"),Shredder("atgcatc") ,ref iRef ,ref s));
+            //WriteLine(iRef);
+            //WriteLine(s);
             //   ArrayList ar = new ArrayList();
 
             //   ar.Add("catgcatc");
@@ -60,7 +76,7 @@ namespace Superstring
             //   ar.Add("ttca");
             // //  ar.Add("atgcatc");
 
-            ////   Console.WriteLine(GetOverlapingString(Shredder("ttcatgcatc"), Shredder("gctaagt")));
+            ////   WriteLine(GetOverlapingString(Shredder("ttcatgcatc"), Shredder("gctaagt")));
 
             //   BestMatchPair(ar, ref  str1, ref  str2,ref iRef);
             //str1 = "catgc";
@@ -68,30 +84,18 @@ namespace Superstring
             ////Shredder(str1);
 
             //str2 = "atgcatc";
-            //Console.WriteLine(MergeOverlapedStrings(str1, str2));
+            //WriteLine(MergeOverlapedStrings(str1, str2));
 
 
             //str1 = "ctaagt";
             //str2 = "gcta";
-            //Console.WriteLine(MergeOverlapedStrings(str1, str2));
+            //WriteLine(MergeOverlapedStrings(str1, str2));
 
 
             //str1 = "catgcatc";
             //str2 = "ttca";
-            //Console.WriteLine(MergeOverlapedStrings(str1, str2));
-
-            str1 = "ttcatgcatc";
-            str2 = "gctaagt";
-        //    Console.WriteLine(MergeOverlapedStrings(str1, str2));
-
-            //    Console.WriteLine("Best Matched Pair is {0} And {1} with Substring length {2}", str1, str2,iRef);
-
-
-            //int i = 0;
-            //int j = 0;
-
-            //   GetOverlapIndex(str1, str2, ref i, ref j);
-            Console.ReadKey();
+            //WriteLine(MergeOverlapedStrings(str1, str2));
+            ReadKey();
         }
     }
 
@@ -104,53 +108,22 @@ namespace Superstring
             NON = -1
         };
 
-        public  OverlapingType getOverloapingMethod(string strInput, string strOver)
-        {
-            OverlapingType c = OverlapingType.NON;
 
-            if (strInput[0] == strOver[0])
-            {
-                c = OverlapingType.Prefix;
-            }
-            else if (strInput[0] != strOver[0])
-            {
-                c = OverlapingType.Suffix;
-            }
-            return c;
-        }
-
-        public  void print(ArrayList ar)
+        public void Print(ArrayList ar)
         {
             for (int i = 0; i < ar.Count; i++)
             {
-                Console.WriteLine(Convert.ToString(ar[i]));
+                WriteLine(Convert.ToString(ar[i]));
             }
         }
 
-        public  ArrayList ShredderEx(string strInput)
-        {
-            ArrayList ar = new ArrayList();
-            int iStartIndex = 0;
-            int iCount = strInput.Length;
-
-            while (iStartIndex != strInput.Length)
-            {
-                for (int i = 0; i < iCount; i++)
-                {
-                    ar.Add(strInput.Substring(iStartIndex, i + 1));
-                }
-                iCount--;
-                iStartIndex++;
-            }
-
-
-            ar = RemDuplication(ar);
-
-            return ar;
-        }
-
-
-        public  ArrayList Shredder(string strInput)
+        /// <summary>
+        /// Shredder
+        /// Split given string into chunks Both from RLT, LTR
+        /// </summary>
+        /// <param name="strInput"></param>
+        /// <returns></returns>
+        public ArrayList Shredder(string strInput)
         {
             ArrayList ar = new ArrayList();
             int iStartIndex = 0;
@@ -195,20 +168,15 @@ namespace Superstring
         /// <returns></returns>
         public ArrayList RemDuplication(ArrayList ar)
         {
+            ArrayList arrayList = new ArrayList();
             for (int i = 0; i < ar.Count; i++)
             {
-                for (int j = i + 1; j < ar.Count; j++)
+                if (!arrayList.Contains(ar[i]))
                 {
-                    if (Convert.ToString(ar[i]).Equals(ar[j].ToString()))
-                    {
-                        ar.RemoveAt(j);
-                        ar.TrimToSize();
-                        j--;
-                        break;
-                    }
+                    arrayList.Add(ar[i]);
                 }
             }
-            return ar;
+            return arrayList;
         }
 
         /// <summary>
@@ -245,7 +213,7 @@ namespace Superstring
         }
 
         /// <summary>
-        /// 
+        /// Get Overlapping String from Given String ArrayLists
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -274,36 +242,7 @@ namespace Superstring
             return strResult;
         }
 
-        public void BestMatchPair(ArrayList ar, ref string str1, ref string str2, ref int iLen)
-        {
-            if (ar.Count == 1 || ar.Count == 0)
-                return;
-
-            int iMaxLength = 0;
-
-            string strTemp1 = "";
-            string strTemp2 = "";
-
-            int i = 0;
-            strTemp1 = Convert.ToString(ar[i]);
-
-            for (int j = i + 1; j < ar.Count; j++)
-            {
-                strTemp2 = Convert.ToString(ar[j]);
-
-                int len = GetOverlapingString(Shredder(strTemp1), Shredder(strTemp2)).Length;
-
-                if (len > iMaxLength)
-                {
-                    str1 = strTemp1;
-                    str2 = strTemp2;
-                    iMaxLength = len;
-                    iLen = iMaxLength;
-                }
-            }
-        }
-
-        public  void GetOverlapIndex(string str1, string str2, ref int Indx1, ref int Indx2)
+        public void GetOverlapIndex(string str1, string str2, ref int Indx1, ref int Indx2)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
 
@@ -357,7 +296,7 @@ namespace Superstring
 
         }
 
-        public  void GetOverlapIndexAndString(string str1, string str2, ref int Indx1, ref int Indx2, ref string strOver)
+        public void GetOverlapIndexAndString(string str1, string str2, ref int Indx1, ref int Indx2, ref string strOver)
         {
             string strOverlaped = GetOverlapingString(Shredder(str1), Shredder(str2));
 
@@ -415,7 +354,7 @@ namespace Superstring
 
         }
 
-        public  string MergeOverlapedStrings(string str1, string str2)
+        public string MergeOverlapedStrings(string str1, string str2)
         {
             string strOutput = "";
             string strOvr = string.Empty;
@@ -451,3 +390,97 @@ namespace Superstring
 
     }
 }
+
+//public void BestMatchPair(ArrayList ar, ref string str1, ref string str2, ref int iLen)
+//{
+//    if (ar.Count == 1 || ar.Count == 0)
+//        return;
+
+//    int iMaxLength = 0;
+
+//    string strTemp1 = "";
+//    string strTemp2 = "";
+
+//    int i = 0;
+//    strTemp1 = Convert.ToString(ar[i]);
+
+//    for (int j = i + 1; j < ar.Count; j++)
+//    {
+//        strTemp2 = Convert.ToString(ar[j]);
+
+//        int len = GetOverlapingString(Shredder(strTemp1), Shredder(strTemp2)).Length;
+
+//        if (len > iMaxLength)
+//        {
+//            str1 = strTemp1;
+//            str2 = strTemp2;
+//            iMaxLength = len;
+//            iLen = iMaxLength;
+//        }
+//    }
+//}
+/// <summary>
+/// Remove duplicated items from arraylist
+/// </summary>
+/// <param name="ar"></param>
+/// <returns></returns>
+//public ArrayList RemDuplication(ArrayList ar)
+//{
+//    for (int i = 0; i < ar.Count; i++)
+//    {
+//        for (int j = i + 1; j < ar.Count; j++)
+//        {
+//            if (Convert.ToString(ar[i]).Equals(ar[j].ToString()))
+//            {
+//                ar.RemoveAt(j);
+//                ar.TrimToSize();
+//                j--;
+//                break;
+//            }
+//        }
+//    }
+//    return ar;
+//}
+
+///// <summary>
+///// Better Solution for Shredder
+///// </summary>
+///// <param name="strInput"></param>
+///// <returns></returns>
+//public ArrayList ShredderEx(string strInput)
+//{
+//    ArrayList ar = new ArrayList();
+//    int iStartIndex = 0;
+//    int iCount = strInput.Length;
+
+//    while (iStartIndex != strInput.Length)
+//    {
+//        for (int i = 0; i < iCount; i++)
+//        {
+//            ar.Add(strInput.Substring(iStartIndex, i + 1));
+//        }
+//        iCount--;
+//        iStartIndex++;
+//    }
+
+
+//    ar = RemDuplication(ar);
+
+//    return ar;
+//}
+
+
+//public OverlapingType GetOverloapingType(string strInput, string strOver)
+//{
+//    OverlapingType c = OverlapingType.NON;
+
+//    if (strInput[0] == strOver[0])
+//    {
+//        c = OverlapingType.Prefix;
+//    }
+//    else if (strInput[0] != strOver[0])
+//    {
+//        c = OverlapingType.Suffix;
+//    }
+//    return c;
+//}
